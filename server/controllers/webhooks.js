@@ -16,7 +16,7 @@ export const clerkWebhook = async (req, res) => {
                     _id: id,
                     name: name,
                     email: email_addresses[0].email_address,
-                    imageUrl: profile_image_url,
+                    imageUrl: imageUrl,
                 })
                 await user.save();
                 res.status(200).json({ message: "User created successfully" });
@@ -26,7 +26,7 @@ export const clerkWebhook = async (req, res) => {
                 const userData={
                     email: data.email_addresses[0].email_address,
                     name: data.name,
-                    imageUrl: data.profile_image_url,
+                    imageUrl: data.imageUrl,
                 }
                 await User.findByIdAndUpdate(data.id, userData)
                 res.json({})
