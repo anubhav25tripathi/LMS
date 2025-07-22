@@ -50,9 +50,9 @@ export const clerkWebhook = async (req, res) => {
 
 }
 
-
+const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
 export const stripeWebhook = async (req, res) => {
-    const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
+    
     const sig = req.headers['stripe-signature'];
     let event;
     try {
@@ -72,9 +72,10 @@ export const stripeWebhook = async (req, res) => {
                 courseData.enrolledStudents.push(userData);
                 await courseData.save();
                 userData.enrolledCourses.push(courseData._id);
-                userData.save();
+                await userData.save();
                 purchaseData.status = 'completed';
                 await purchaseData.save();
+
                 break;
             }
             case 'payment_intent.payment_failed':{
