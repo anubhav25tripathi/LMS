@@ -13,7 +13,7 @@ const app= express();
 // configs
 await connectDB();
 await connectCloudinary();
-
+app.post('/stripe', express.raw({ type: 'application/json' }), stripeWebhook);
 //middlewares
 app.use(cors());
 app.use(clerkMiddleware())
