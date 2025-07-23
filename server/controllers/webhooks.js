@@ -57,7 +57,7 @@ export const stripeWebhook = async (req, res) => {
     let event;
     try {
           
-          const event = stripeInstance.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+          event = stripeInstance.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
           switch (event.type) {
             case 'payment_intent.succeeded':{
                 const paymentIntent = event.data.object;
