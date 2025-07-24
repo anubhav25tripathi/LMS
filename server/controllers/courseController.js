@@ -6,7 +6,7 @@ export const getAllCourses= async (req, res) => {
           res.json({success: true, courses});
      }
      catch(error){
-         res.status(500).json({success: false, message: error.message});
+         res.json({success: false, message: error.message});
      }
 }
 export const getCourseId= async (req, res) => {
@@ -21,7 +21,7 @@ export const getCourseId= async (req, res) => {
         res.json({success: true, courseData});
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 

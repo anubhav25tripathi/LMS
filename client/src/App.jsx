@@ -13,10 +13,12 @@ import StudentsEnrolled from './pages/educator/StudentsEnrolled'
 import Navbar from './components/student/Navbar'
 import Dashboard  from './pages/educator/Dashboard'
 import "quill/dist/quill.snow.css";
+import { ToastContainer } from 'react-toastify'
 const App = () => {
   const isEducatorRoute = useMatch('/educator/*');
   return (
     <div className='text-default min-h-screen bg-gray-100'>
+      <ToastContainer />
       {!isEducatorRoute && <Navbar/>}
       
        <Routes>

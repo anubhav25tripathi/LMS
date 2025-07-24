@@ -29,6 +29,7 @@ import schedule from './schedule.png'
 import X from './X.png'
 import file_upload_icon from './file_upload_icon.png'
 import dropdown_icon from './dropdown_icon.png'
+import blue_tick_icon from './blue_tick_icon.png'
 
 export const assets = {
   Accenture,
@@ -45,7 +46,7 @@ export const assets = {
     profile3, arrow_icon, cross_icon,down_arrow,play_icon,time_left,
     clock,book,person_tick,
     add, dashboard,facebook,instagram, X,earning
-    ,schedule,patient,file_upload_icon, dropdown_icon,
+    ,schedule,patient,file_upload_icon, dropdown_icon,blue_tick_icon,
 };
 export const dummyEducatorData = {
     "_id": "675ac1512100b91a6d9b8b24",

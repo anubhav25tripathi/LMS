@@ -14,7 +14,7 @@ export const getUserData= async (req, res) => {
         res.json({success: true, user});
    }
    catch(error){
-       res.status(500).json({success: false, message: error.message});
+       res.json({success: false, message: error.message});
    }
 }
 export const userEnrolledCourses= async (req, res) => {
@@ -22,12 +22,12 @@ export const userEnrolledCourses= async (req, res) => {
         const userId=req.auth.userId;
         const user=await User.findById(userId).populate('enrolledCourses');
         if(!user){
-            return res.status(404).json({success: false, message: 'User not found'});
+            return res.json({success: false, message: 'User not found'});
         }
         res.json({success: true, enrolledCourses: user.enrolledCourses});
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 
@@ -74,7 +74,7 @@ export const purchaseCourse= async (req, res) => {
 
      }
      catch(error){
-         res.status(500).json({success: false, message: error.message});
+         res.json({success: false, message: error.message});
      }
 }
 
@@ -85,7 +85,7 @@ export const updateCourseProgress = async (req, res) => {
         const progressData = await CourseProgress.findOne({ userId, courseId });
         if(progressData){
             if(progressData.lectureCompleted.includes(lectureId)){
-                return res.status(400).json({success: false, message: 'Lecture already completed'});
+                return res.json({success: false, message: 'Lecture already completed'});
             }
             progressData.lectureCompleted.push(lectureId);
             await progressData.save();
@@ -100,7 +100,7 @@ export const updateCourseProgress = async (req, res) => {
         res.json({success: true, message: 'Progress updated successfully'});
 }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 
@@ -112,7 +112,7 @@ export const getUserCourseProgress= async (req, res) => {
         res.json({success:true,progressData})
    }
    catch(error){
-       res.status(500).json({success: false, message: error.message});
+       res.json({success: false, message: error.message});
    }
 }
 
@@ -142,6 +142,6 @@ export const addUserRating = async (req, res) => {
        res.json({success: true, message: 'Rating added successfully'});
     }
     catch (error) {
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }

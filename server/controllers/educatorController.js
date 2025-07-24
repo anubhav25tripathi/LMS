@@ -2,6 +2,7 @@ import {clerkClient} from '@clerk/express';
 import Course from '../models/course.js';
 import Purchase from '../models/purchase.js';
 import { v2 as cloudinary} from 'cloudinary';
+import User from '../models/User.js';
 export const updateRollToEducator= async (req,res)=>{
     try{
         const userId= req.auth.userId
@@ -10,10 +11,10 @@ export const updateRollToEducator= async (req,res)=>{
                 role: 'educator',
             }
         });
-        res.status(200).json({message: "you can publish your courses now"});
+        res.json({success:true ,message: "you can publish your courses now"});
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 export const addCourse = async (req, res) => {
@@ -23,7 +24,7 @@ export const addCourse = async (req, res) => {
         const imageFile = req.file;
         const educatorId = req.auth.userId; // Assuming you're using multer for file uploads
         if(!imageFile){
-            return res.status(400).json({success: false, message: "Image file is required"});
+            return res.json({success: false, message: "Image file is required"});
         }
         const parsedCourseData = await JSON.parse(courseData);
         parsedCourseData.educator = educatorId; // Set the educator ID from the
@@ -36,7 +37,7 @@ export const addCourse = async (req, res) => {
 
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 
@@ -47,7 +48,7 @@ export const getEducatorCourses = async (req, res) => {
         res.json({success: true, courses});
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 export const educatorDashboard = async (req, res) => {
@@ -79,7 +80,7 @@ export const educatorDashboard = async (req, res) => {
         });
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
 
@@ -98,6 +99,6 @@ export const getEnrolledStudentsData = async (req, res) => {
         res.json({ success: true, enrolledStudentsData });
     }
     catch(error){
-        res.status(500).json({success: false, message: error.message});
+        res.json({success: false, message: error.message});
     }
 }
