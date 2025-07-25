@@ -9,7 +9,7 @@ import Rating from '../../components/student/Rating'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Loading from '../../components/student/Loading'
-const Payer = () => {
+const Player = () => {
   const {enrolledCourses, calculateChapterTime,backendUrl,getToken,userData,fetchUserEnrolledCourses}=useContext(AppContext)
   const {courseId}=useParams();
   const [courseData,setCourseData]=useState(null)
@@ -162,4 +162,4 @@ const Payer = () => {
   <Loading />
 }
 
-export default Payer
+export default Player
