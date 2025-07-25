@@ -15,12 +15,12 @@ const CourseDetails = () => {
   const [isAlreadyEnrolled,setIsAlreadyEnrolled]=useState(false)
   const [playerData,setPlayerData]=useState(null)
   const {allCourses, calculaterating,calculateChapterTime,calculateCourseDuration,
-         calculateNoOfLecture,backendUrl,userData}= useContext(AppContext)
+         calculateNoOfLecture,backendUrl,userData,getToken,}= useContext(AppContext)
   const fetchcourse= async ()=> {
      try{
          const {data}= await axios.get(`${backendUrl}/api/course/${id}`);
          if(data.success){
-            setCourseData(data.course);
+            setCourseData(data.courseData);
             //toast.success(data.message);
          }
          else{
@@ -41,7 +41,7 @@ const CourseDetails = () => {
           toast.warn('You are already enrolled in this course');
           return;
         }
-        const token= await userData.getToken();
+        const token= await getToken();
         const {data}= await axios.post(`${backendUrl}/api/user/purchase`,{courseId:courseData._id},{headers:{Authorization:`Bearer ${token}`}})
         if(data.success){
            const {session_url}= data;
@@ -60,7 +60,7 @@ const CourseDetails = () => {
   },[])
   useEffect(()=>{
     if(courseData && userData){
-       setIsAlreadyEnrolled(courseData.enrolledStudents.includes(userData._id));
+       setIsAlreadyEnrolled(userData.enrolledCourses.includes(courseData._id));
     }
   },[courseData,userData])
 

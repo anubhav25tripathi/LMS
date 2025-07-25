@@ -4,7 +4,7 @@ import { protectEducator } from '../middlewares/authMiddleware.js';
 import upload from '../configs/multer.js';
 const educatorRouter = express.Router();
 educatorRouter.get('/update-role', updateRollToEducator);
-educatorRouter.post('/add-course', protectEducator, upload.single('image'), addCourse);
+educatorRouter.post('/add-course', upload.single('image'), protectEducator, addCourse);
 educatorRouter.get('/courses', protectEducator, getEducatorCourses);
 educatorRouter.get('/dashboard', protectEducator, educatorDashboard);
 educatorRouter.get('/enrolled-students', protectEducator, getEnrolledStudentsData);

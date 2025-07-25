@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import connectDB from './configs/mongodb.js';
-import { clerkWebhook, stripeWebhook } from './controllers/webhooks.js';
+import { clerkWebhook, stripeWebhooks } from './controllers/webhooks.js';
 import educatorRouter from './routes/educatorRoutes.js';
 import { clerkMiddleware } from '@clerk/express';
 import  connectCloudinary  from './configs/cloudinary.js';
@@ -15,13 +15,9 @@ await connectDB();
 await connectCloudinary();
 
 //middlewares
-app.use(cors({
-  origin: 'https://courseseller-frontend.vercel.app',
-  credentials: true,
-}));
+app.use(cors());
 
-app.use(express.json({ limit: '25mb' }));
-app.use(express.urlencoded({ extended: true, limit: '25mb' }));
+
 app.use(clerkMiddleware())
 // routes
 app.get('/', (req, res) => {
@@ -29,11 +25,12 @@ app.get('/', (req, res) => {
   res.send('API working')
 }
 );
+
 app.post('/clerk', express.json(), clerkWebhook);
 app.use('/api/educator',express.json(),educatorRouter);
 app.use('/api/course', express.json(), courseRouter);
 app.use('/api/user', express.json(), userRouter);
-app.post('/stripe', express.raw({ type: 'application/json' }), stripeWebhook);
+app.post('/stripe', express.raw({ type: 'application/json' }), stripeWebhooks);
 
 
 const PORT = process.env.PORT || 3000;

@@ -15,7 +15,7 @@ const MyEnrollments = () => {
         enrolledCourses.map(async (course) => {
           const {data}= await axios.post(`${backendUrl}/api/user/get-course-progress`,{courseId:course._id},{headers:{Authorization:`Bearer ${token}`}})
           let totalLectures= calculteNoOfLectures(course);
-          const lectureCompleted= data.progressData ? data.progressData.lectureCompleted : 0;
+          const lectureCompleted= data.progressData ? data.progressData.lectureCompleted.length : 0;
           return { totalLectures, lectureCompleted };
         }
       )  
