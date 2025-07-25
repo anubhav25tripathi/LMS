@@ -17,6 +17,7 @@ export const AppContextProvider = (props)=>{
     const { user } = useUser();
     const [userData, setUserData] = useState(null);
     const navigate = useNavigate();
+    const currency = '$';
     const fetchAllCourses= async () => {
         try{
             const {data} = await axios.get(`${backendUrl}/api/course/allCourses`);
@@ -98,7 +99,7 @@ export const AppContextProvider = (props)=>{
        }
     },[user])
     const value={
-         currency:'$', allCourses,navigate,calculaterating,isEducator,
+         currency, allCourses,navigate,calculaterating,isEducator,
          calculateChapterTime,calculateCourseDuration,
          calculateNoOfLecture,enrolledCourses,fetchUserEnrolledCourses,backendUrl,
          fetchAllCourses,userData,setUserData,getToken,setIsEducator,
