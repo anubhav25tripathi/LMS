@@ -26,7 +26,7 @@ export const addCourse = async (req, res) => {
         if(!imageFile){
             return res.json({success: false, message: "Image file is required"});
         }
-        const parsedCourseData = await JSON.parse(courseData);
+        const parsedCourseData = JSON.parse(courseData);
         parsedCourseData.educator = educatorId; // Set the educator ID from the
         const imageUpload=await cloudinary.uploader.upload(imageFile.path);
         parsedCourseData.courseThumbnail = imageUpload.secure_url; // Set the course thumbnail URL

@@ -88,6 +88,7 @@ const handleSubmit=async(e)=>{
       e.preventDefault()
       if(!image){
         toast.error('Thumbnail not selected');
+        return;
       }
       const courseData={
         courseTitle,
