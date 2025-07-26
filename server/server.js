@@ -15,7 +15,10 @@ await connectDB();
 await connectCloudinary();
 
 //middlewares
-app.use(cors());
+app.use(cors({
+  origin: 'https://courseseller-frontend.vercel.app',
+  credentials: true
+}));
 
 
 app.use(clerkMiddleware())
