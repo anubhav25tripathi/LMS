@@ -8,8 +8,9 @@ const Footer = () => {
         <div className='flex flex-col md:items-start items-center w-full'>
            <img className='w-14 h-14' src={assets.logo} alt="logo" />
            <p className='mt-6 text-center md:text-left text-sm text-white/80'>
-           Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-           Delectus ut atque saepe quae adipisci consectetur repellendus odit a nam quod?
+           A platform where educators share their knowledge and students discover opportunities to learn, grow, and succeed — all in one place.           
+           Connecting passionate educators with eager learners, making education accessible, flexible, and impactful for everyone.
+           Your journey of learning and teaching starts here — publish, purchase, and progress with confidence.
            </p>
         </div>
         <div className='flex flex-col md:items-start items-center w-full'>
