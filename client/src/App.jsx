@@ -14,6 +14,7 @@ import Navbar from './components/student/Navbar'
 import Dashboard  from './pages/educator/Dashboard'
 import "quill/dist/quill.snow.css";
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   const isEducatorRoute = useMatch('/educator/*');
   return (
