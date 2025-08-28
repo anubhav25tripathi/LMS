@@ -84,10 +84,10 @@ export const educatorDashboard = async (req, res) => {
     }
 }
 
-export const getEnrolledStudentsData = async (req, res) => {
+/*export const getEnrolledStudentsData = async (req, res) => {
     try{
-        const educatorId = req.auth.userId;
-        const courses = await Course.find({educator: educatorId});
+        const educator = req.auth.userId;
+        const courses = await Course.find({educator});
         const courseIds = courses.map(course => course._id);
         const purchases = await Purchase.find({ courseId: { $in: courseIds }, status: 'completed' })
         .populate('userId', 'name imageUrl').populate('courseId', 'courseTitle');
@@ -101,4 +101,37 @@ export const getEnrolledStudentsData = async (req, res) => {
     catch(error){
         res.json({success: false, message: error.message});
     }
-}
+}*/
+export const getEnrolledStudentsData = async (req, res) => {
+  try {
+    const educatorId = req.auth.userId;
+
+    // get all courses created by educator
+    const courses = await Course.find({ educator: educatorId });
+    const courseIds = courses.map(course => course._id);
+
+    // find completed purchases for those courses
+    const purchases = await Purchase.find({ 
+      courseId: { $in: courseIds }, 
+      status: 'completed' 
+    })
+    .populate('courseId', 'courseTitle') // course info
+    .populate('userId', 'name imageUrl'); // student info
+
+    // map into frontend-friendly structure
+    const enrolledStudents = purchases.map(purchase => ({
+      student: {
+        _id: purchase.userId._id,
+        name: purchase.userId.name,
+        imageUrl: purchase.userId.imageUrl
+      },
+      courseTitle: purchase.courseId.courseTitle,
+      purchaseDate: purchase.createdAt,
+    }));
+
+    res.json({ success: true, enrolledStudents });
+  } catch (error) {
+    console.error("Error fetching enrolled students:", error);
+    res.json({ success: false, message: error.message });
+  }
+};
